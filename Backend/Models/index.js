@@ -102,4 +102,120 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//user profile
+
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
+
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("Logged Out");
+});
+
+//add student
+
+app.post("/add", async (req, res) => {
+  try {
+    if (!req.body.name || !req.body.subject || !req.body.marks) {
+      return res.status(400).send({
+        message: "Send all required fields: name, subject, marks",
+      });
+    }
+
+    const { name, subject, marks } = req.body;
+    const existingStudent = await Student.findOne({ name, subject });
+
+    if (existingStudent) {
+      await Student.updateOne({ name, subject }, { marks });
+      return res.status(200).send({ message: "Student updated" });
+    } else {
+      const newStudent = { name, subject, marks };
+      const student = await Student.create(newStudent);
+      return res.status(201).send(student);
+    }
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+//get students
+
+app.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find();
+
+    return res.status(200).json({
+      count: students.length,
+      data: students,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+//delete student
+
+app.delete("/students/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await Student.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    return res.status(200).json({
+      message: "Student deleted successfully",
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+//update student
+
+app.put("/students/:id", async (req, res) => {
+  try {
+    if (!req.body.name || !req.body.subject || !req.body.marks) {
+      return res.status(400).send({
+        message: "Send all required fields: name, subject, marks",
+      });
+    }
+
+    const { id } = req.params;
+
+    const result = await Student.findByIdAndUpdate(id, req.body);
+
+    if (!result) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    return res.status(200).json({
+      message: "Student updated successfully",
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+//get single student
+app.get("/students/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const student = await Student.findById(id);
+
+    return res.status(200).json(student);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send({ message: err.message });
+  }
+});
 
