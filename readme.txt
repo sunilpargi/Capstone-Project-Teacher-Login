@@ -22,9 +22,3 @@ A web application for teachers to manage their classes and student information. 
 
 - Node.js (v14 or later)
 - npm (Node Package Manager)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/teacher-portal.git
