@@ -6,32 +6,30 @@ export const HomePage = () => {
   return (
     <div>
       <p>
-        Welcome to the Tailwebs - Teacher Portal, a comprehensive platform
-        designed to streamline and enhance the educational experience for both
-        teachers and students. Built with modern web technologies such as
-        React.js for the front-end and Node.js for the back-end, our portal
-        provides a robust and user-friendly interface for managing student
-        information.
+        Welcome to the EduPortal, a dedicated platform crafted to streamline the
+        educational process for teachers and students alike. Developed using
+        modern web technologies like React.js for the front-end and Node.js for
+        the back-end, this portal offers a seamless and intuitive interface for
+        managing student data efficiently.
       </p>
       <br />
       <p>
-        Teachers can effortlessly log in, view, edit, and manage student
-        records, ensuring that every detail is up-to-date and accurate. With
-        features like inline editing, real-time updates, and intuitive
-        navigation, our portal aims to simplify administrative tasks, allowing
-        educators to focus more on teaching and less on paperwork. Secure,
-        scalable, and built with best practices in mind, the Teacher Portal is
-        your reliable partner in fostering an efficient and organized
-        educational environment.
+        Teachers can easily log in, view, edit, and manage student records,
+        ensuring all information is current and precise. With features such as
+        inline editing, instant updates, and easy navigation, EduPortal aims to
+        reduce administrative burdens, enabling educators to concentrate more on
+        teaching. Secure, scalable, and developed with best practices, EduPortal
+        is your reliable partner in fostering a well-organized educational
+        setting.
       </p>
       <Link style={{ textDecoration: "none" }} to="/login">
-        <Button id="login-btn" className="btn" variant="contained">
-          Login
+        <Button id="login-btn" className="btn" variant="contained" color="primary">
+          Sign In
         </Button>
       </Link>
       <Link style={{ textDecoration: "none" }} to="/register">
-        <Button id="register-btn" className="btn" variant="outlined">
-          Register
+        <Button id="register-btn" className="btn" variant="outlined" color="secondary">
+          Sign Up
         </Button>
       </Link>
       <br />
@@ -39,30 +37,26 @@ export const HomePage = () => {
         className="note"
         style={{
           textAlign: "center",
-          fontSize: "15px",
+          fontSize: "16px",
           fontWeight: "bold",
-          color: "red",
-          padding: "10px",
-          border: "1px solid red",
-          borderRadius: "5px",
-          backgroundColor: "rgba(255, 0, 0, 0.1)",
-          width: "300px",
-          margin: "0 auto",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          marginBottom: "20px",
-          fontFamily: "sans-serif",
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "500px",
+          color: "blue",
+          padding: "12px",
+          border: "1px solid blue",
+          borderRadius: "8px",
+          backgroundColor: "rgba(0, 0, 255, 0.1)",
+          width: "350px",
+          margin: "20px auto",
+          boxShadow: "0 3px 6px rgba(0, 0, 0, 0.15)",
+          fontFamily: "Arial, sans-serif",
+          maxWidth: "600px",
           overflow: "auto",
           wordWrap: "break-word",
           whiteSpace: "pre-wrap",
-          lineHeight: "1.5",
-          textIndent: "0",
+          lineHeight: "1.6",
         }}
       >
         <p>
-          <b>**Note:-</b> To test out the app use the following credentials or register yourself as a new user**
+          <b>**Important Notice:-</b> You can test the app using the following credentials or sign up as a new user**
         </p>
         <br />
         <p>Username:{"  test"}</p>

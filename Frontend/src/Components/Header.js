@@ -32,7 +32,7 @@ export const Header = () => {
 
   return (
     <header>
-      <h1>Tailwebs</h1>
+      <h1>EduPortal</h1>
       <nav>
         {username && (
           <>

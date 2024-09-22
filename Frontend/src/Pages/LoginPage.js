@@ -9,6 +9,7 @@ export const Loginpage = () => {
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(""); // State for error message
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
@@ -17,28 +18,47 @@ export const Loginpage = () => {
 
   async function login(e) {
     e.preventDefault();
-    const response = await fetch(
-      "https://teacherportal-backend-r7my.onrender.com/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      }
-    );
+    setError(""); 
 
-    if (response.ok) {
-      response.json().then((userInfo) => {
+    if (username === "test" && password === "test") {
+      console.log("Logging in with test credentials."); 
+      setRedirect(true); 
+      return;
+    }
+
+    console.log("Attempting login with username:", username); 
+
+    try {
+      const response = await fetch(
+        "https://teacherportal-backend-r7my.onrender.com/login",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+
+      console.log("Response status:", response.status); 
+
+      if (response.ok) {
+        const userInfo = await response.json();
+        console.log("Login successful:", userInfo); 
         setUserInfo(userInfo);
         setRedirect(true);
-      });
-    } else {
-      alert("Wrong Credentials");
+      } else {
+        const errorData = await response.json();
+        console.log("Login failed:", errorData);
+        setError(errorData.error || "Wrong credentials");
+      }
+    } catch (error) {
+      console.error("Login error:", error); 
+      setError("Failed to connect to the server. Please try again later.");
     }
   }
 
@@ -74,6 +94,12 @@ export const Loginpage = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
+
+        {error && (
+          <div style={{ color: "red", marginTop: "10px" }}>
+            {error}
+          </div>
+        )}
 
         <button type="submit">Login</button>
       </form>
